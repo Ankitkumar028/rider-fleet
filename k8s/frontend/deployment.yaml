@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rider-frontend
+  namespace: fleet
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rider-frontend
+  template:
+    metadata:
+      labels:
+        app: rider-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: rider-fleet-frontend:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi

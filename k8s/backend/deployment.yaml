@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rider-backend
+  namespace: fleet
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rider-backend
+  template:
+    metadata:
+      labels:
+        app: rider-backend
+    spec:
+      containers:
+        - name: backend
+          image: rider-fleet-backend:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          env:
+            - name: PORT
+              value: "4000"
+            - name: MONGO_URI
+              value: mongodb://mongodb:27017/rider_fleet_db
+            - name: JWT_SECRET
+              value: change_me_in_prod

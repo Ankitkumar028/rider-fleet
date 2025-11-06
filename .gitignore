@@ -1,0 +1,29 @@
+# Node
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+frontend/dist/
+coverage/
+
+# Env/config (never commit secrets)
+*.env
+**/*.env
+.env.local
+.env.development
+.env.production
+frontend/.env
+backend/.env
+
+# OS/IDE
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Misc
+*.log
+*.cache
+.tmp/
