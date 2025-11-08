@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/partnerships', async (req, res) => {
   try {
-    const ps = await Partnership.find().sort({ createdAt: -1 });
+    const ps = await Partnership.find({ visible: true }).sort({ order: 1, createdAt: -1 });
     res.json(ps);
   } catch (e) {
     console.error(e);

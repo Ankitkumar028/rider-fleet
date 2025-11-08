@@ -12,6 +12,7 @@ import ProgressForm from './pages/admin/ProgressForm.jsx'
 import Partnerships from './pages/admin/Partnerships.jsx'
 import Profile from './pages/rider/Profile.jsx'
 import RiderProgress from './pages/rider/Progress.jsx'
+import Home from './pages/public/Home.jsx'
 
 function RootRouter() {
   const role = localStorage.getItem('role')
@@ -24,7 +25,8 @@ export default function App() {
     <AuthProvider>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<RootRouter />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/app" element={<RootRouter />} />
 
         <Route
           path="/admin"

@@ -176,9 +176,9 @@ router.get('/partnerships', async (req, res) => {
 
 router.post('/partnerships', async (req, res) => {
   try {
-    const { name, url = '', logoUrl = '' } = req.body;
+    const { name, url = '', logoUrl = '', visible = true, order = 0 } = req.body;
     if (!name) return res.status(400).json({ message: 'name required' });
-    const p = await Partnership.create({ name, url, logoUrl });
+    const p = await Partnership.create({ name, url, logoUrl, visible, order });
     res.status(201).json(p);
   } catch (e) {
     console.error(e);
@@ -194,6 +194,25 @@ router.delete('/partnerships/:id', async (req, res) => {
     if (!p) return res.status(404).json({ message: 'Not found' });
     res.json({ ok: true });
   } catch (e) { console.error(e); res.status(500).json({ message: 'Failed to delete partnership' }); }
+});
+
+router.put('/partnerships/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, url, logoUrl, visible, order } = req.body;
+    const update = {};
+    if (name !== undefined) update.name = name;
+    if (url !== undefined) update.url = url;
+    if (logoUrl !== undefined) update.logoUrl = logoUrl;
+    if (visible !== undefined) update.visible = !!visible;
+    if (order !== undefined) update.order = Number(order) || 0;
+    const p = await Partnership.findByIdAndUpdate(id, update, { new: true });
+    if (!p) return res.status(404).json({ message: 'Not found' });
+    res.json(p);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: 'Failed to update partnership' });
+  }
 });
 
 // Riders CSV export
